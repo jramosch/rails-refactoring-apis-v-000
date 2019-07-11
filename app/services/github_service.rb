@@ -12,13 +12,13 @@ class GithubService
   end
 
   def get_username
-    user_response = Faraday.get "https://api.github.com/user", {}, {'Authorization' => "token #{@access_token}", 'Accept' => 'application/json'}
+    user_response = Faraday.get "https://api.github.com/user", {}, {'Authorization' => "token 1", 'Accept' => 'application/json'}
     user_json = JSON.parse(user_response.body)
     user_json["login"]
   end
 
   def get_repos
-    response = Faraday.get "https://api.github.com/user/repos", {}, {'Authorization' => "token #{@access_token}", 'Accept' => 'application/json'}
+    response = Faraday.get "https://api.github.com/user/repos", {}, {'Authorization' => "token 1", 'Accept' => 'application/json'}
     repos = JSON.parse(response.body)
     repos.map do |repo|
       GithubRepo.new(repo)
@@ -26,6 +26,6 @@ class GithubService
   end
 
   def create_repo(name)
-    response = Faraday.post "https://api.github.com/user/repos", {name: name}.to_json, {'Authorization' => "token #{@access_token}", 'Accept' => 'application/json'}
+    response = Faraday.post "https://api.github.com/user/repos", {name: name}.to_json, {'Authorization' => "token 1", 'Accept' => 'application/json'}
   end
 end
